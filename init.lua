@@ -354,6 +354,17 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          undo = {
+            use_delta = true,
+            use_custom_command = nil, -- setting this implies `use_delta = false`. Accepted format is: { "bash", "-c", "echo '$DIFF' | delta" }
+            side_by_side = false,
+            vim_diff_opts = {
+              ctxlen = vim.o.scrolloff,
+            },
+            entry_format = 'state #$ID, $STAT, $TIME',
+            time_format = '',
+            saved_only = false,
+          },
         },
       }
 
@@ -895,7 +906,7 @@ require('lazy').setup({
     build = 'make',
     opts = {
       -- add any opts here
-      provider = 'openai',
+      provider = 'claude',
     },
     dependencies = {
       'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
@@ -974,7 +985,6 @@ require('typescript-tools').setup {
     end,
   },
 }
-
 -- Use system clipboard for yanking and pasting
 vim.opt.clipboard:append 'unnamedplus'
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
